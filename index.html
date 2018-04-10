@@ -25,7 +25,7 @@
 <!-- Live chat comes from NGage -->
 <!-- Langauge Translate comes from Google Cloud API ($$$) -->
 <div class="container-fluid">
-<div class="row sticky-top">
+<div class="row">
 	<img class="col-md" src="images/logo.png" />
 	<div class="col-md">
 	<div class="btn-group-vertical float-right">
@@ -43,8 +43,34 @@
 			</a>
 		</div>
 		</div>
-</div>
+		</div>
+	<div class="row">
+	<div class="col-md"></div>
+	<div class="col-md" ng-app="consultForm" ng-controller="formCtrl">
+	<span ng-bind="resp" ng-if="form.$submitted"></span>
+		<form name="form" ng-submit="submit($event)" ng-hide="form.$submitted" novalidate>
+		<div class="form-group">
+		<input type="text" ng-model="name" name="name" class="form-control" required placeholder="Your Name*" />
+		<input type="tel" ng-model="phone" name="phone" class="form-control" required placeholder="Phone Number*" />
+		<textarea ng-model="msg" class="form-control" name="msg" placeholder="Your Message"></textarea>
+		<input type="submit" ng-model="submit" value="Submit" ng-disabled="form.$submitted || form.name.$invalid || form.phone.$invalid" />
+		</div>
+		</form>
+	</div>
+		</div>
 
 </div>
+<script>
+var app = angular.module('consultForm', []);
+app.controller('formCtrl', function($scope,$http,$q) {
+	$scope.resp = "Sending...";
+   $scope.submit = function(e) {
+   $http.post("http://localhost:8080",angular.element(e.target).serialize()).then(function(response)
+   {$scope.resp = response.data}); 
+ /* Php+jQuery $q(function(resolve,reject) {jQuery.post("http://localhost:8080",angular.element(e.target).serialize(), 	function(response) {
+   		resolve(response); }); }).then(function(r){$scope.resp = r;});*/
+   	   }
+});
+</script>
 </body>
 </html>

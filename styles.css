@@ -1,5 +1,4 @@
-.bottom
+input.ng-invalid
 {
-	position:absolute;
-	bottom:0px;
+	background-color:lightGray;
 }
