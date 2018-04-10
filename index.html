@@ -66,10 +66,10 @@ app.controller('formCtrl', function($scope,$http,$q) {
 	$scope.resp = "Sending...";
    $scope.submit = function(e) {
    $http.post("http://localhost:8080",angular.element(e.target).serialize()).then(function(response)
-   {$scope.resp = response.data}); 
- /* Php+jQuery $q(function(resolve,reject) {jQuery.post("http://localhost:8080",angular.element(e.target).serialize(), 	function(response) {
+   {$scope.resp = response.data},function(error){$scope.resp = "Sorry, the messaging service is not available. Please try again later.";}); 
+   	   };
+   	    /* Php+jQuery $q(function(resolve,reject) {jQuery.post("http://localhost:8080",angular.element(e.target).serialize(), 	function(response) {
    		resolve(response); }); }).then(function(r){$scope.resp = r;});*/
-   	   }
 });
 </script>
 </body>
